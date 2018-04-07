@@ -1,5 +1,68 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!-- <div style="text-align:center">
     <h1>Welcome to GetTextFromPhoto !</h1>
+</div> -->
+<div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas>
+    <div class="grid-y grid-padding-x" style="height: 100%;">
+        <br>
+        <div class="cell shrink">
+            <img class="thumbnail" src="https://placehold.it/550x350">
+        </div>
+        <div class="cell auto">
+            <h5>Select language</h5>
+            <p>English</p>
+        </div>
+    </div>
 </div>
-
+<div class="off-canvas-content" data-off-canvas-content>
+    <div class="title-bar hide-for-large">
+        <div class="title-bar-left">
+            <button class="menu-icon" type="button" data-toggle="my-info"></button>
+            <span class="title-bar-title">Mike Mikerson</span>
+        </div>
+    </div>
+    <div class="callout primary">
+        <article class="grid-container">
+            <div>
+                <h1>Hello! Welcome to GetTextFromPhoto !</h1>
+                <p class="lead">1.Click the canvas to add an img which includes text.</p>
+                <p class="lead">2.Click the button "START!" to run the algorithm.</p>
+                <p class="lead">3.You can copy the text to your own clipboard.</p>
+            </div>
+        </article>
+    </div>
+    <article class="grid-container">
+        <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4" id="canvas">
+            <div class="can"> 
+                <img class="thumbnail" src="https://placehold.it/550x550">
+            </div>
+        </div>
+        <div id="text">
+            <button type="button" class="button warning">START!</button>
+            <textarea placeholder="The text in your imagine will be shown in this area!"></textarea>
+        </div>
+        <hr>
+        <div class="grid-x grid-margin-x">
+            <div class="medium-6 cell">
+                <h3>Contact Me</h3>
+                <p>If you have any question or suggestion to this website,please come to contact me in the fllowing ways.You can also leave message to me by filling in the form on the right.</p>
+                <ul class="menu">
+                    <li><a href="mailto:282106931@qq.com">Email</a></li>
+                    <li><a href="tel:13621833156">Phone</a></li>
+                </ul>
+            </div>
+            <div class="medium-6 cell">
+                <label>Name
+                    <input type="text" placeholder="Name">
+                </label>
+                <label>Email
+                    <input type="text" placeholder="Email">
+                </label>
+                <label>Message
+                    <textarea placeholder="holla at a designer"></textarea>
+                </label>
+                <input type="submit" class="button expanded" value="Submit">
+            </div>
+        </div>
+    </article>
+</div>
