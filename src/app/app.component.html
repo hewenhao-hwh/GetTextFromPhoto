@@ -34,11 +34,14 @@
     <article class="grid-container">
         <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4" id="canvas">
             <div class="can"> 
-                <img class="thumbnail" src="https://placehold.it/550x550">
+                <img id="target_img" class="thumbnail" [src]="img_url">
+                <button type="button" class="button alert select" (click)="onSelect()">SELECT</button>
+                <button type="button" class="button warning run" (click)="onStart()">START!</button>
+                
+                <input type="file" accept="image/*" id="invisiable" style="display: none"  (change)="onChange($event)"/>
             </div>
         </div>
         <div id="text">
-            <button type="button" class="button warning">START!</button>
             <textarea placeholder="The text in your imagine will be shown in this area!"></textarea>
         </div>
         <hr>
