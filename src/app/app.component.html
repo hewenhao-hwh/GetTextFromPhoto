@@ -37,7 +37,7 @@
                 <img id="target_img" class="thumbnail" [src]="img_url">
                 <button type="button" class="button alert select" (click)="onSelect()">SELECT</button>
                 <button type="button" class="button warning run" (click)="onStart()">START!</button>
-                
+                <button type="button" class="button warning run" (click)="onReady()">READY!</button>
                 <input type="file" accept="image/*" id="invisiable" style="display: none"  (change)="onChange($event)"/>
             </div>
         </div>

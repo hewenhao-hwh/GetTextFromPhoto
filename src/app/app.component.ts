@@ -11,7 +11,7 @@ export class AppComponent implements OnInit{
   }
   constructor(
     private ImageService: ImageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) { }
   title = 'app';
   //img_url="https://placehold.it/550x550";
@@ -37,10 +37,19 @@ export class AppComponent implements OnInit{
       //把图片包在FormData里传送，nodejs才能得到files
       var form = new FormData();  
       form.append("file", this.target_photo);
-      this.ImageService.uploadphoto(form);
+      this.ImageService.uploadOpenCVphoto(form);
     }
     else{
       alert("请先上传一张本地图片！");
     }
+  }
+
+  onReady():void {
+    this.ImageService.downloadOpenCVResultImg();
+    this.img_url =  this.sanitizer.bypassSecurityTrustUrl(sessionStorage.getItem("Result_img_url"));
+    console.log(this.img_url);
+    this.ImageService.downloadOpenCVResultText();
+    this.Text = sessionStorage.getItem("Result_text");
+    console.log(this.Text);
   }
 }
