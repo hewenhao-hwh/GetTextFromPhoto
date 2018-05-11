@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   target_photo:any;
   img_url:any;
   Text='';
-
+  circle_progress_percent="0";
   onSelect(): void {
     document.getElementById("invisiable").click();
   }
@@ -32,24 +32,61 @@ export class AppComponent implements OnInit{
   }
 
   onStart():void {
-
     if(this.target_photo!=null){
       //把图片包在FormData里传送，nodejs才能得到files
       var form = new FormData();  
       form.append("file", this.target_photo);
-      this.ImageService.uploadOpenCVphoto(form);
+      if((document.getElementsByName("myGroup").item(0) as HTMLInputElement).checked){
+        console.log("是OpenCV");
+        this.ImageService.uploadOpenCVphoto(form);
+      }
+      else if((document.getElementsByName("myGroup").item(1) as HTMLInputElement).checked){
+        console.log("是OCR");
+        //this.ImageService.uploadOpenCVphoto(form);
+      }
+      this.circle_progress_percent="100";
+      document.getElementById("floating_layer").style.display="block";
     }
     else{
       alert("请先上传一张本地图片！");
     }
+    setTimeout(function () {
+      document.getElementById("ready").style.display="block";
+    }, '40000');
   }
 
   onReady():void {
+    this.ImageService.downloadOpenCVResultText();
+    this.ImageService.downloadOpenCVResultImg();
+    this.target_photo=null;
+    setTimeout(function () {
+      document.getElementById("read").click();
+    }, '1000');
+  }
+
+  onCancel():void{
+    document.getElementById("floating_layer").style.display="none";
+    document.getElementById("ready").style.display="none";
+    this.circle_progress_percent="0";
+  }
+
+  getURL():any{
+    if(this.img_url!=null)
+        return this.img_url;
+    return "https://placehold.it/550x550";
+  }
+
+  getResult():any{
     this.ImageService.downloadOpenCVResultImg();
     this.img_url =  this.sanitizer.bypassSecurityTrustUrl(sessionStorage.getItem("Result_img_url"));
     console.log(this.img_url);
-    this.ImageService.downloadOpenCVResultText();
+  }
+
+  onRead():void{
     this.Text = sessionStorage.getItem("Result_text");
+    this.img_url =  this.sanitizer.bypassSecurityTrustUrl(sessionStorage.getItem("Result_img_url"));
     console.log(this.Text);
+    console.log(this.img_url);
+    this.onCancel();
   }
 }

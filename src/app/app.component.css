@@ -1,7 +1,7 @@
 #canvas {
   float: left; 
   width:50%;
-  height:32rem;
+  height:40rem;
 }
 #text {
   float: right; 
@@ -31,4 +31,33 @@
 #target_img{
   width:550px;
   height: 550px;
+}
+
+#floating_layer {
+  display: none;
+}
+#floating_layer>#background{
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  right:10px;
+  bottom: 10px;
+  z-index:100;
+  
+  filter:alpha(Opacity=40);/*支持 IE 浏览器*/
+  -moz-opacity:0.4;/*支持 FireFox 浏览器*/
+  opacity: 0.4;/*支持 Chrome, Opera, Safari 等浏览器*/
+  background-color:#33d8e0;
+}
+#floating_layer>#content{
+  position: fixed;
+  z-index:110;
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  height: 500px;
+  margin: -250px 0 0 -250px;
+}
+#ready{
+  display: none;
 }
