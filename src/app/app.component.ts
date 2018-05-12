@@ -42,7 +42,16 @@ export class AppComponent implements OnInit{
       }
       else if((document.getElementsByName("myGroup").item(1) as HTMLInputElement).checked){
         console.log("是OCR");
-        //this.ImageService.uploadOpenCVphoto(form);
+        var language="";
+        var lan=document.getElementsByName("myLanguage");
+        for(var i=0; i<lan.length; i++){
+          if((lan.item(i) as HTMLInputElement).checked){
+            language += (lan.item(i) as HTMLInputElement).value+'+'; //如果选中，将value添加到变量s中
+          }
+        }
+        language=language.substring(0,language.length-1);
+        form.append("language",language)
+        this.ImageService.uploadOCRphoto(form);
       }
       this.circle_progress_percent="100";
       document.getElementById("floating_layer").style.display="block";
@@ -56,8 +65,15 @@ export class AppComponent implements OnInit{
   }
 
   onReady():void {
-    this.ImageService.downloadOpenCVResultText();
-    this.ImageService.downloadOpenCVResultImg();
+    if((document.getElementsByName("myGroup").item(0) as HTMLInputElement).checked){
+      console.log("是OpenCV");
+      this.ImageService.downloadOpenCVResultText();
+      this.ImageService.downloadOpenCVResultImg();
+    }
+    else if((document.getElementsByName("myGroup").item(1) as HTMLInputElement).checked){
+      console.log("是OCR");
+      this.ImageService.downloadOCRResultText();
+    }
     this.target_photo=null;
     setTimeout(function () {
       document.getElementById("read").click();
@@ -83,10 +99,23 @@ export class AppComponent implements OnInit{
   }
 
   onRead():void{
-    this.Text = sessionStorage.getItem("Result_text");
-    this.img_url =  this.sanitizer.bypassSecurityTrustUrl(sessionStorage.getItem("Result_img_url"));
-    console.log(this.Text);
-    console.log(this.img_url);
+    if((document.getElementsByName("myGroup").item(0) as HTMLInputElement).checked){
+      this.Text = sessionStorage.getItem("Result_text");
+      this.img_url =  this.sanitizer.bypassSecurityTrustUrl(sessionStorage.getItem("Result_img_url"));
+      console.log(this.Text);
+      console.log(this.img_url);
+    }
+    else if((document.getElementsByName("myGroup").item(1) as HTMLInputElement).checked){
+      this.Text = sessionStorage.getItem("Result_text");
+      console.log(this.Text);
+    }
     this.onCancel();
+  }
+
+  onLan():void{
+    document.getElementById("language").style.display="block";
+  }
+  noLan():void{
+    document.getElementById("language").style.display="none";
   }
 }

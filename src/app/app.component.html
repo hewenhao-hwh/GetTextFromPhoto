@@ -46,12 +46,30 @@
                 <button type="button" class="button alert select" (click)="onSelect()">选择图片</button>
                 <button type="button" class="button warning run" (click)="onStart()">开始运行！</button>
                 <div class="switch">
-                    <input id="mySwitch1" type="radio" checked name="myGroup">
-                    <label for="mySwitch1">自然场景的文字识别</label>
+                    <input id="mySwitch1" type="radio" checked name="myGroup" (click)="noLan()">
+                    <label for="mySwitch1" (click)="noLan()">自然场景的文字识别</label>
                 </div> 
                 <div class="switch">
-                    <input id="mySwitch2" type="radio" name="myGroup">
-                    <label for="mySwitch2">打印字体的文字识别</label>
+                    <input id="mySwitch2" type="radio" name="myGroup" (click)="onLan()">
+                    <label for="mySwitch2" (click)="onLan()">打印字体的文字识别</label>
+                </div>
+                <div id="language" style="display:none">
+                    <div>
+                        <input id="myCheckbox1" type="checkbox" name="myLanguage" value="eng" checked >
+                        <label for="myCheckbox1">英语</label>
+                    </div> 
+                    <div>
+                        <input id="myCheckbox2" type="checkbox" name="myLanguage" value="chi_sim">
+                        <label for="myCheckbox2">简体中文</label>
+                    </div>
+                    <div>
+                        <input id="myCheckbox3" type="checkbox" name="myLanguage" value="chi_tra">
+                        <label for="myCheckbox3">繁体中文</label>
+                    </div> 
+                    <div>
+                        <input id="myCheckbox4" type="checkbox" name="myLanguage" value="spa">
+                        <label for="myCheckbox4">西班牙语</label>
+                    </div>
                 </div>
                 <textarea placeholder="The text in your imagine will be shown in this area!">{{Text}}</textarea>
             </div>
