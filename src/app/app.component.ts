@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { ImageService } from './Image.service';
 import { DomSanitizer } from '@angular/platform-browser';
+var timeout;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,6 +19,8 @@ export class AppComponent implements OnInit{
   target_photo:any;
   img_url:any;
   Text='';
+  language="英语";
+  post_language="eng";
   circle_progress_percent="0";
   onSelect(): void {
     document.getElementById("invisiable").click();
@@ -36,21 +39,13 @@ export class AppComponent implements OnInit{
       //把图片包在FormData里传送，nodejs才能得到files
       var form = new FormData();  
       form.append("file", this.target_photo);
+      form.append("language",this.post_language);
       if((document.getElementsByName("myGroup").item(0) as HTMLInputElement).checked){
         console.log("是OpenCV");
         this.ImageService.uploadOpenCVphoto(form);
       }
       else if((document.getElementsByName("myGroup").item(1) as HTMLInputElement).checked){
         console.log("是OCR");
-        var language="";
-        var lan=document.getElementsByName("myLanguage");
-        for(var i=0; i<lan.length; i++){
-          if((lan.item(i) as HTMLInputElement).checked){
-            language += (lan.item(i) as HTMLInputElement).value+'+'; //如果选中，将value添加到变量s中
-          }
-        }
-        language=language.substring(0,language.length-1);
-        form.append("language",language)
         this.ImageService.uploadOCRphoto(form);
       }
       this.circle_progress_percent="100";
@@ -59,7 +54,7 @@ export class AppComponent implements OnInit{
     else{
       alert("请先上传一张本地图片！");
     }
-    setTimeout(function () {
+    timeout=setTimeout(function () {
       document.getElementById("ready").style.display="block";
     }, '40000');
   }
@@ -75,6 +70,7 @@ export class AppComponent implements OnInit{
       this.ImageService.downloadOCRResultText();
     }
     this.target_photo=null;
+    (document.getElementById("invisiable") as HTMLInputElement).value='';
     setTimeout(function () {
       document.getElementById("read").click();
     }, '1000');
@@ -84,6 +80,7 @@ export class AppComponent implements OnInit{
     document.getElementById("floating_layer").style.display="none";
     document.getElementById("ready").style.display="none";
     this.circle_progress_percent="0";
+    clearTimeout(timeout); 
   }
 
   getURL():any{
@@ -112,10 +109,82 @@ export class AppComponent implements OnInit{
     this.onCancel();
   }
 
-  onLan():void{
-    document.getElementById("language").style.display="block";
+  Lan1():void{
+    (document.getElementById("mySwitch2") as HTMLInputElement).checked=false;
   }
-  noLan():void{
-    document.getElementById("language").style.display="none";
+  Lan2():void{
+    (document.getElementById("mySwitch1") as HTMLInputElement).checked=false;
+  }
+  onChange_box1():void{
+    if((document.getElementById("myCheckbox1") as HTMLInputElement).checked){
+      this.Add_to_language("英语","eng");
+    }
+    else{
+      var str=this.language.split('+');
+      var pstr=this.post_language.split('+');
+      this.language="";
+      this.post_language="";
+      for(var i=0;i<str.length;i++){
+        if(str[i]!="英语"){
+          this.Add_to_language(str[i],pstr[i]);
+        }
+      }
+    }
+  }
+  onChange_box2():void{
+    if((document.getElementById("myCheckbox2") as HTMLInputElement).checked){
+      this.Add_to_language("西班牙语","spa");
+    }
+    else{
+      var str=this.language.split('+');
+      var pstr=this.post_language.split('+');
+      this.language="";
+      this.post_language="";
+      for(var i=0;i<str.length;i++){
+        if(str[i]!="西班牙语"){
+          this.Add_to_language(str[i],pstr[i]);
+        }
+      }
+    }
+  }
+  onChange_box3():void{
+    if((document.getElementById("myCheckbox3") as HTMLInputElement).checked){
+      this.Add_to_language("简体中文","chi_sim");
+    }
+    else{
+      var str=this.language.split('+');
+      var pstr=this.post_language.split('+');
+      this.language="";
+      this.post_language="";
+      for(var i=0;i<str.length;i++){
+        if(str[i]!="简体中文"){
+          this.Add_to_language(str[i],pstr[i]);
+        }
+      }
+    }
+  }
+  onChange_box4():void{
+    if((document.getElementById("myCheckbox4") as HTMLInputElement).checked){
+      this.Add_to_language("繁体中文","chi_tra");
+    }
+    else{
+      var str=this.language.split('+');
+      var pstr=this.post_language.split('+');
+      this.language="";
+      this.post_language="";
+      for(var i=0;i<str.length;i++){
+        if(str[i]!="繁体中文"){
+          this.Add_to_language(str[i],pstr[i]);
+        }
+      }
+    }
+  }
+  Add_to_language(l,pl):void{
+    if(this.language!=""){
+      this.post_language=this.post_language+'+';
+      this.language=this.language+'+';
+    }
+    this.post_language=this.post_language+pl;
+    this.language=this.language+l;
   }
 }

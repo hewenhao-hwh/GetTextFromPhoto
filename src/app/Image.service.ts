@@ -16,6 +16,7 @@ export class ImageService {
   /* OpenCV部分 */
   uploadOpenCVphoto(img:FormData) { //把图片包在FormData里传送，nodejs才能得到files
     console.log("发送图片:",img.get("file"));
+    console.log("语言参数:",img.get("language"));
     return this.http
     .post('http://localhost:3000/uploadOpenCVPhoto', img, {
       responseType: "json"

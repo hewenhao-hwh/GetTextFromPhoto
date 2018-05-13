@@ -1,7 +1,7 @@
 #canvas {
   float: left; 
   width:50%;
-  height:40rem;
+  height:37rem;
 }
 #text {
   float: right; 
@@ -9,7 +9,7 @@
   height:32rem;
 }
 #text textarea{
-	height:22rem;
+	height:18.2rem;
 }
 .can{
 	width:90%;

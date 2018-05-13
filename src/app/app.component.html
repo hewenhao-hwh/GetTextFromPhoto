@@ -13,10 +13,11 @@
                 <h5>操作指南</h5>
                 <p>1.按“选择图片”按钮，选择一张本地图片。</p>
                 <p>2.您需要选择您的文字是处于自然场景中还是打印字体，您的选择将直接影响算法效果。若其中一个算法效果不好，可以换另一个试试。</p>
-                <p>3.按“开始运行”按钮，开始运行算法，并弹出等待浮层。</p>
-                <p>4.算法运行过程中，您可以随时取消，停止算法。</p>
-                <p>5.按“获取结果”按钮，退出等待浮层并显示结果。</p>
-                <p>6.若有任何问题，您可以通过网页下方的联系方式向我留言。</p>
+                <p>3.您需要选择翻译的语言，这一步也会影响算法效果。甚至选择的先后顺序也会产生影响，建议把文字多的那种语言放在前面。</p>
+                <p>4.按“开始运行”按钮，开始运行算法，并弹出等待浮层。</p>
+                <p>5.算法运行过程中，您可以随时取消，停止算法。</p>
+                <p>6.按“获取结果”按钮，退出等待浮层并显示结果。</p>
+                <p>7.若有任何问题，您可以通过网页下方的联系方式向我留言。</p>
             </div>
         </div>
     </div>
@@ -46,29 +47,28 @@
                 <button type="button" class="button alert select" (click)="onSelect()">选择图片</button>
                 <button type="button" class="button warning run" (click)="onStart()">开始运行！</button>
                 <div class="switch">
-                    <input id="mySwitch1" type="radio" checked name="myGroup" (click)="noLan()">
-                    <label for="mySwitch1" (click)="noLan()">自然场景的文字识别</label>
+                    <input id="mySwitch1" type="radio" checked name="myGroup" (click)="Lan1()">
+                    <label for="mySwitch1" (click)="Lan1()">自然场景的文字识别</label>
                 </div> 
                 <div class="switch">
-                    <input id="mySwitch2" type="radio" name="myGroup" (click)="onLan()">
-                    <label for="mySwitch2" (click)="onLan()">打印字体的文字识别</label>
+                    <input id="mySwitch2" type="radio" name="myGroup" (click)="Lan2()">
+                    <label for="mySwitch2" (click)="Lan2()">打印字体的文字识别</label>
                 </div>
-                <div id="language" style="display:none">
+                <div>
+                    <p>选择语言: {{language}}</p>
+                </div>
+                <div id="language">
                     <div>
-                        <input id="myCheckbox1" type="checkbox" name="myLanguage" value="eng" checked >
-                        <label for="myCheckbox1">英语</label>
+                        <input id="myCheckbox1" type="checkbox" name="myLanguage" value="eng" (change)="onChange_box1()" checked>
+                        <label for="myCheckbox1" style="margin-right:43px;">英语</label>
+                        <input id="myCheckbox2" type="checkbox" name="myLanguage" value="spa" (change)="onChange_box2()">
+                        <label for="myCheckbox2">西班牙语</label>
                     </div> 
                     <div>
-                        <input id="myCheckbox2" type="checkbox" name="myLanguage" value="chi_sim">
-                        <label for="myCheckbox2">简体中文</label>
-                    </div>
-                    <div>
-                        <input id="myCheckbox3" type="checkbox" name="myLanguage" value="chi_tra">
-                        <label for="myCheckbox3">繁体中文</label>
-                    </div> 
-                    <div>
-                        <input id="myCheckbox4" type="checkbox" name="myLanguage" value="spa">
-                        <label for="myCheckbox4">西班牙语</label>
+                        <input id="myCheckbox3" type="checkbox" name="myLanguage" value="chi_sim" (change)="onChange_box3()">
+                        <label for="myCheckbox3">简体中文</label>
+                        <input id="myCheckbox4" type="checkbox" name="myLanguage" value="chi_tra" (change)="onChange_box4()">
+                        <label for="myCheckbox4">繁体中文</label>
                     </div>
                 </div>
                 <textarea placeholder="The text in your imagine will be shown in this area!">{{Text}}</textarea>
